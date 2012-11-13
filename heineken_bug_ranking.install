@@ -1,0 +1,26 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the heineken_bug_ranking module.
+ */
+
+
+/**
+ * Implements hook_install().
+ */
+function heineken_bug_ranking_install() {}
+
+/**
+ * Implements hook_uninstall().
+ */
+function heineken_bug_ranking_uninstall() {
+  heineken_bug_ranking_delete_variables();
+  watchdog('Heineken Bug Ranking', 'Module uninstalled.');
+}
+
+/**
+ * Delete all module variables
+ */
+function heineken_bug_ranking_delete_variables() {
+  db_delete('variable')->condition('name', 'heineken_bug_ranking_%', 'LIKE')->execute();
+}
