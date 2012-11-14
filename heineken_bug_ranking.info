@@ -1,5 +1,5 @@
 name = Heineken Bug Ranking
-description = 
+description = Heineken Bug Ranking
 package = Heineken Team
 version = "7.x-1.1"
 core = 7.x
