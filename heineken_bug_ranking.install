@@ -11,6 +11,113 @@
 function heineken_bug_ranking_install() {}
 
 /**
+ * Implements hook_schema().
+ */
+function heineken_bug_ranking_schema() {
+	$schema['heineken_bug_ranking_user'] = array(
+	    'fields' => array(
+			'id' => array(
+				'type' => 'serial',
+				'unsigned' => TRUE,
+				'not null' => TRUE,
+			),
+			'name' => array(
+				'type' => 'varchar',
+				'length' => 128,
+				'not null' => TRUE,
+				'default' => '',
+			),
+		),
+		'primary key' => array('id'),
+	);
+
+	$schema['heineken_bug_ranking_project'] = array(
+		'fields' => array(
+			'id' => array(
+				'type' => 'serial',
+				'unsigned' => TRUE,
+				'not null' => TRUE,
+			),
+			'name' => array(
+				'type' => 'varchar',
+				'length' => 128,
+				'not null' => TRUE,
+				'default' => '',
+			),
+		),
+		'primary key' => array('id'),
+	);
+
+	$schema['heineken_bug_ranking_type'] = array(
+		'fields' => array(
+			'id' => array(
+				'type' => 'serial',
+				'unsigned' => TRUE,
+				'not null' => TRUE,
+			),
+			'name' => array(
+				'type' => 'varchar',
+				'length' => 128,
+				'not null' => TRUE,
+				'default' => '',
+			),
+		),
+		'primary key' => array('id'),
+	);
+
+	$schema['heineken_bug_ranking_bug'] = array(
+	    'fields' => array(
+			'id' => array(
+				'type' => 'serial',
+				'unsigned' => TRUE,
+				'not null' => TRUE,
+			),
+			'jira' => array(
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'not null' => TRUE,
+			),
+			'user_id' => array(
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'not null' => TRUE,
+			),
+			'project_id' => array(
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'not null' => TRUE,
+			),
+			'type_id' => array(
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'not null' => TRUE,
+			),
+		),
+		'foreign keys' => array(
+			'user_id' => array(
+				'table' => 'heineken_bug_ranking_user',
+				'columns' => array('user_id' => 'id'),
+			),
+			'project_id' => array(
+				'table' => 'heineken_bug_ranking_project',
+				'columns' => array('project_id' => 'id'),
+			),
+			'type_id' => array(
+				'table' => 'heineken_bug_ranking_type',
+				'columns' => array('type_id' => 'id'),
+			),
+		),
+		'primary key' => array('id'),
+
+	);
+
+	return $schema;
+
+}
+
+
+
+/**
  * Implements hook_uninstall().
  */
 function heineken_bug_ranking_uninstall() {
