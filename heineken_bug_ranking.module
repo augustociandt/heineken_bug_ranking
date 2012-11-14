@@ -8,11 +8,22 @@ function heineken_bug_ranking_menu() {
   $items['admin/config/heineken_bug_ranking'] = array(
     'title'            => 'Heineken Bug Ranking',
     'description'      => 'Setting for Heineken Bug Ranking',
+    'page callback'    => 'system_admin_menu_block_page',
+    'page arguments'   => array( 'heineken_bug_ranking_admin_form' ),
+    'access arguments' => array( 'administer heineken_bug_ranking' ),
+    'type'             => MENU_NORMAL_ITEM,
+    'file'             => 'system.admin.inc',
+    'file path'        => drupal_get_path( 'module', 'system' )
+  );
+  
+  $items['admin/config/heineken_bug_ranking/users'] = array(
+    'title'            => 'Users administration',
+    'description'      => 'Add, remove, update users',
     'page callback'    => 'drupal_get_form',
     'page arguments'   => array( 'heineken_bug_ranking_admin_form' ),
     'access arguments' => array( 'administer heineken_bug_ranking' ),
     'type'             => MENU_NORMAL_ITEM,
-    'file'             => 'inc/heineken_bug_ranking.admin.inc'
+    'file'             => 'inc/user.admin.inc'
   );
   
   return $items;
