@@ -6,14 +6,15 @@
 function heineken_bug_ranking_menu() {
   $items = array(); 
   $items['admin/config/heineken_bug_ranking'] = array(
-  'title'            => 'Heineken Bug Ranking',
-  'description'      => 'Setting for Heineken Bug Ranking',
-  'page callback'    => 'drupal_get_form',
-  'page arguments'   => array( 'heineken_bug_ranking_admin_form' ),
-  'access arguments' => array( 'administer heineken_bug_ranking' ),
-  'type'             => MENU_NORMAL_ITEM,
-  'file'             => 'inc/heineken_bug_ranking.admin.inc'
+    'title'            => 'Heineken Bug Ranking',
+    'description'      => 'Setting for Heineken Bug Ranking',
+    'page callback'    => 'drupal_get_form',
+    'page arguments'   => array( 'heineken_bug_ranking_admin_form' ),
+    'access arguments' => array( 'administer heineken_bug_ranking' ),
+    'type'             => MENU_NORMAL_ITEM,
+    'file'             => 'inc/heineken_bug_ranking.admin.inc'
   );
   
+  return $items;
 }
 
