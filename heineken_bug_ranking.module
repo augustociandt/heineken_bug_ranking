@@ -25,6 +25,26 @@ function heineken_bug_ranking_menu() {
     'type'             => MENU_NORMAL_ITEM,
     'file'             => 'inc/user.admin.inc'
   );
+
+  $items['admin/config/heineken_bug_ranking/project'] = array(
+    'title'            => 'Projects administration',
+    'description'      => 'Add, remove, update Projects',
+    'page callback'    => 'drupal_get_form',
+    'page arguments'   => array( 'heineken_bug_ranking_admin_form' ),
+    'access arguments' => array( 'administer heineken_bug_ranking' ),
+    'type'             => MENU_NORMAL_ITEM,
+    'file'             => 'inc/project.admin.inc'
+  );
+
+  $items['admin/config/heineken_bug_ranking/type'] = array(
+    'title'            => 'Type administration',
+    'description'      => 'Add, remove, update type bugs',
+    'page callback'    => 'drupal_get_form',
+    'page arguments'   => array( 'heineken_bug_ranking_admin_form' ),
+    'access arguments' => array( 'administer heineken_bug_ranking' ),
+    'type'             => MENU_NORMAL_ITEM,
+    'file'             => 'inc/type.admin.inc'
+  );
   
   return $items;
 }
