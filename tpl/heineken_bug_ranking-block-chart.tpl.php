@@ -1,9 +1,5 @@
 
-<?php 
-
-echo $variables['bugs'];
-
-?>
+<pre>
 
 <script type="text/javascript">
 <?php

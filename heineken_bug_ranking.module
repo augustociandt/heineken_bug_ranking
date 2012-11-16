@@ -125,7 +125,7 @@ function heineken_bug_ranking_get_bugs($project_id) {
   //$value
   //['Firefox', 4],['IE', 26],['Chrome', 1],['Safari', 8],['Opera', 6],['Others', 7]]";
   
-  $rs = '"data: [';
+  $rs = 'data: [';
   $rm = array();
   for($x=0 ; $x<count($value) ; $x++) {
     $name = $value[$x]['name'];
@@ -133,7 +133,7 @@ function heineken_bug_ranking_get_bugs($project_id) {
     $rm[] = '[\''.$name.'\', '.$bugs.']';
   }
   $rs .= implode(",", $rm);
-  $rs .= ']"';
+  $rs .= ']';
   return $rs;
 }
 
