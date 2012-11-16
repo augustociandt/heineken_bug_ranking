@@ -103,16 +103,10 @@ function heineken_bug_ranking_block_view($delta = '') {
 function _heineken_bug_ranking_render_block($delta = ''){
   switch ($delta) {
     case 'chart_block':
-      $output = theme("heineken_bug_ranking_block_chart_theme", heineken_bug_ranking_parse_bugs(1));
+      $output = theme("heineken_bug_ranking_block_chart_theme", array( 'bugs' => heineken_bug_ranking_get_bugs(1) ) );
     break;
     }
   return $output;
-}
-
-function heineken_bug_ranking_parse_bugs($id) {
-  $bugs = array('bugs' => heineken_bug_ranking_get_bugs($id) );
-
-  return $bugs;
 }
 
 function heineken_bug_ranking_get_bugs($project_id) {
@@ -127,7 +121,20 @@ function heineken_bug_ranking_get_bugs($project_id) {
   while($record = $result->fetchAssoc()) {
     $value[] = $record;
   }
-  return $value;
+  
+  //$value
+  //['Firefox', 4],['IE', 26],['Chrome', 1],['Safari', 8],['Opera', 6],['Others', 7]]";
+  
+  $rs = '"data: [';
+  $rm = array();
+  for($x=0 ; $x<count($value) ; $x++) {
+    $name = $value[$x]['name'];
+    $bugs = $value[$x]['bugs'];
+    $rm[] = '[\''.$name.'\', '.$bugs.']';
+  }
+  $rs .= implode(",", $rm);
+  $rs .= ']"';
+  return $rs;
 }
 
 
