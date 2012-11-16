@@ -1,6 +1,15 @@
+
+<?php 
+echo "algo";
+echo '<pre>';
+print_r($variables['bugs']);
+
+?>
+
 <script type="text/javascript">
 <?php
 $data = "data: [['Firefox', 4],['IE', 26],['Chrome', 1],['Safari', 8],['Opera', 6],['Others', 7]]";
+
 ?>
 (function ($) {
   $(document).ready (function() {

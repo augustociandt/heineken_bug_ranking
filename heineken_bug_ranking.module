@@ -103,8 +103,35 @@ function heineken_bug_ranking_block_view($delta = '') {
 function _heineken_bug_ranking_render_block($delta = ''){
   switch ($delta) {
     case 'chart_block':
-      $output = theme("heineken_bug_ranking_block_chart_theme");
+      $output = theme("heineken_bug_ranking_block_chart_theme", heineken_bug_ranking_parse_bugs(1) );
     break;
     }
   return $output;
 }
+
+function heineken_bug_ranking_parse_bugs($id) {
+  $bugs = array('bugs' => heineken_bug_ranking_get_bugs($id) );
+
+  return $bugs;
+}
+
+
+
+function heineken_bug_ranking_get_bugs($project_id) {
+  $query = db_select('heineken_bug_ranking_bug', 'hb');
+  $query->fields('hb');
+  $query->join('heineken_bug_ranking_user', 'hu', 'hb.user_id = hu.id');
+  $query->groupBy('user_id');
+  $query->condition('project_id', $project_id,'=');
+  $result = $query->execute();
+  
+  $value = array();
+  while($record = $result->fetchAssoc()) {
+    $value[] = $record;
+  }
+  return $value;
+}
+
+
+
+
