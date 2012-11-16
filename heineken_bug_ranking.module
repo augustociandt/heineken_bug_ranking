@@ -103,7 +103,7 @@ function heineken_bug_ranking_block_view($delta = '') {
 function _heineken_bug_ranking_render_block($delta = ''){
   switch ($delta) {
     case 'chart_block':
-      $output = theme("heineken_bug_ranking_block_chart_theme", heineken_bug_ranking_parse_bugs(1) );
+      $output = theme("heineken_bug_ranking_block_chart_theme", heineken_bug_ranking_parse_bugs(1));
     break;
     }
   return $output;
@@ -115,16 +115,14 @@ function heineken_bug_ranking_parse_bugs($id) {
   return $bugs;
 }
 
-
-
 function heineken_bug_ranking_get_bugs($project_id) {
-  $query = db_select('heineken_bug_ranking_bug', 'hb');
-  $query->fields('hb');
-  $query->join('heineken_bug_ranking_user', 'hu', 'hb.user_id = hu.id');
-  $query->groupBy('user_id');
-  $query->condition('project_id', $project_id,'=');
-  $result = $query->execute();
-  
+  $result = db_query('
+    SELECT count(user_id) bugs, hb.user_id, hb.project_id, hu.name 
+    FROM heineken_bug_ranking_bug AS hb, heineken_bug_ranking_user AS hu
+    WHERE hb.user_id = hu.id
+    AND hb.project_id = :project_id group by user_id', 
+    array(':project_id' => $project_id));
+
   $value = array();
   while($record = $result->fetchAssoc()) {
     $value[] = $record;
