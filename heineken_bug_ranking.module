@@ -45,7 +45,66 @@ function heineken_bug_ranking_menu() {
     'type'             => MENU_NORMAL_ITEM,
     'file'             => 'inc/type.admin.inc'
   );
+
+  $items['admin/config/heineken_bug_ranking/bug'] = array(
+    'title'            => 'Bugs administration',
+    'description'      => 'Add, remove, update bugs',
+    'page callback'    => 'drupal_get_form',
+    'page arguments'   => array( 'heineken_bug_ranking_admin_form' ),
+    'access arguments' => array( 'administer heineken_bug_ranking' ),
+    'type'             => MENU_NORMAL_ITEM,
+    'file'             => 'inc/bug.admin.inc'
+  );
   
   return $items;
 }
 
+
+function heineken_bug_ranking_theme(){
+    return array(
+      'heineken_bug_ranking_block_chart_theme' => array(
+        'template' => 'heineken_bug_ranking-block-chart',
+        'path' => drupal_get_path('module', 'heineken_bug_ranking') . '/tpl/',
+        'arguments' => array(),
+      ),
+    );
+}
+
+/**
+ * Implements hook_block_info()
+ */
+function heineken_bug_ranking_block_info() {
+  $blocks = array();
+
+  $blocks['chart_block'] = array(
+    'info' => t('Chart Block'),
+    'cache' => DRUPAL_CACHE_PER_ROLE,
+  );
+  return $blocks;
+}
+
+function heineken_bug_ranking_block_view($delta = '') {
+  switch ($delta) {
+    case 'chart_block':
+      drupal_add_js(drupal_get_path('module', 'heineken_bug_ranking') . '/script/highcharts/highcharts.js');
+      drupal_add_js(drupal_get_path('module', 'heineken_bug_ranking') . '/script/highcharts/modules/exporting.js');
+      return array(
+        'subject' => '',
+        'content' => _heineken_bug_ranking_render_block($delta),
+      );
+    break;
+    
+    default:
+      # code...
+      break;
+  }
+}
+
+function _heineken_bug_ranking_render_block($delta = ''){
+  switch ($delta) {
+    case 'chart_block':
+      $output = theme("heineken_bug_ranking_block_chart_theme");
+    break;
+    }
+  return $output;
+}
